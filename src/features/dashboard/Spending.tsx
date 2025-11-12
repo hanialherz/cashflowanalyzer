@@ -1,11 +1,10 @@
 "use client";
-import { useState } from "react";
-
-import { CgMinimize } from "react-icons/cg";
-import { IoMdExpand } from "react-icons/io";
+import { Dispatch, SetStateAction, useState } from "react";
 
 import Input from "@/components/Input";
 import { MdOutlineAdd } from "react-icons/md";
+import InputSpending from "./InputSpending";
+import ToggleSpending from "./ToggleSpending";
 
 interface SpendingItem {
   id: number;
@@ -15,21 +14,29 @@ interface SpendingItem {
 }
 
 interface props {
-  inputAmount?: number;
-
-  getsetbudget?: (value: string) => void;
+  spending: SpendingItem[];
+  setSpending: Dispatch<SetStateAction<SpendingItem[]>>;
 }
 
-const Spending = ({ inputAmount, getsetbudget }: props) => {
-  const [spending, setSpending] = useState<SpendingItem[]>([]);
+const Spending = ({ spending, setSpending }: props) => {
   const [minimized, setMinimized] = useState<number[]>([]); // keep track of minimized indexes
   const [nextId, setNextId] = useState(0);
+
   const addSpending = () => {
     setSpending((prev) => [
       ...prev,
       { id: nextId, name: "", amount: 0, category: "food-drinks" }, // default values
     ]);
+
+    /* Each time u add a spending to the array increment ID by 1 */
     setNextId((prev) => prev + 1);
+  };
+
+  // Upon a chnage from spending add it to the list for validation
+  const handleAmountChange = (id: number, value: number) => {
+    setSpending((prev) =>
+      prev.map((s) => (s.id === id ? { ...s, amount: value } : s))
+    );
   };
 
   const delSpending = (id: number) => {
@@ -66,20 +73,14 @@ const Spending = ({ inputAmount, getsetbudget }: props) => {
       <div className={`overflow-y-scroll ${spending.length > 0 && "h-100"}`}>
         {spending.map((s, index) => (
           <div key={s.id} className="mb-4 bg-l-black p-2 rounded">
-            <div className="flex items-center justify-between">
-              <p className="text-2xl">{index + 1}</p>
-              <button
-                type="button"
-                onClick={() => toggleMinimize(index)}
-                className="text-2xl text-gray transition-all duration-300 hover:text-main"
-              >
-                {minimized.includes(index) ? (
-                  <CgMinimize className="cursor-pointer" />
-                ) : (
-                  <IoMdExpand className="cursor-pointer" />
-                )}
-              </button>
-            </div>
+            
+
+            <ToggleSpending
+              index={index}
+              minimized={minimized}
+              toggleMinimize={toggleMinimize}
+            />
+
 
             <div
               className={`grid grid-cols-1 gap-4 transition-all duration-300 ${
@@ -91,12 +92,14 @@ const Spending = ({ inputAmount, getsetbudget }: props) => {
                 name="Spending name"
                 type="text"
               />
-              <Input
+              <InputSpending
                 id={`spending-amount-${index}`}
                 name="Spending"
                 type="number"
-                inputAmount={inputAmount}
-                getsetbudget={getsetbudget}
+                value={s.amount}
+                handleChange={(e) =>
+                  handleAmountChange(s.id, Number(e.target.value))
+                }
               />
 
               <div className="flex flex-col justify-center gap-2">

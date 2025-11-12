@@ -14,7 +14,9 @@ interface SpendingItem {
   category: string;
 }
 
-const AddBudgetForm = () => {
+const EditBudgetForm = () => {
+
+  
 
   /* Tracks the budget amount */
   const [inputBudget, setInputBudget] = useState<number>(0);
@@ -99,4 +101,4 @@ const AddBudgetForm = () => {
     </form>
   );
 };
-export default AddBudgetForm;
+export default EditBudgetForm;
