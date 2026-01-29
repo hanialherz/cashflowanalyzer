@@ -1,0 +1,45 @@
+@layer theme, base, components, utilities;
+@import "tailwindcss/theme.css" layer(theme);
+@import "tailwindcss/preflight.css" layer(base);
+@import "tailwindcss/utilities.css" layer(utilities);
+
+/* This for manual toggle */
+@custom-variant dark (&:where(.dark, .dark *));
+
+:root {
+  --background: #ffffff;
+  --foreground: #141414;
+
+  &.dark {
+    --background: #141414;
+    --foreground: #ededed;
+  }
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+
+  --color-main: #72c3fc;
+  --color-inverted-main: #a71e34;
+  --color-gray: #393d3f;
+  --color-lighterblack: #323232;
+  --color-l-black: #292929;
+  --color-bg-shade: #232323;
+  --color-light-text: #575757;
+}
+
+/* auto adapt to browser mode I commented it because I will apply it in the useLocalStorageState hook */
+/* @media (prefers-color-scheme: dark) {
+  :root {
+    --background: #141414;
+    --foreground: #ededed;
+  }
+} */
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: Raleway, sans-serif;
+  overflow-x: hidden;
+}
