@@ -4,7 +4,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
-import { DarkModeProvider } from "@/context/DarkModeContext";
+import { ThemeProvider } from "next-themes";
 
 export const icons = {
   icon: [
@@ -23,17 +23,15 @@ interface RootLayoutProps {
 
 const RootLayout = ({ children }: Readonly<RootLayoutProps>) => {
   return (
-    <DarkModeProvider>
-      <html lang="en">
-        <body className="min-h-screen">
-          <div>
-            <Header />
-            <main>{children}</main>
-            <Footer />
-          </div>
-        </body>
-      </html>
-    </DarkModeProvider>
+    <html lang="en" suppressHydrationWarning>
+      <body className="min-h-screen">
+        <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
+          <Header />
+          <main>{children}</main>
+          <Footer />
+        </ThemeProvider>
+      </body>
+    </html>
   );
 };
 export default RootLayout;

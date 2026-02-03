@@ -7,21 +7,27 @@ import Link from "next/link";
 import NavLink from "./NavLink";
 import SwitchMode from "./SwitchMode";
 
-interface MobileNavbarProps {
+interface NavbarProps {
   menuOpen: boolean;
   action: () => void;
 }
 
-const Navbar = ({ menuOpen, action }: MobileNavbarProps) => {
+{
+  /*menuOpen
+          ? "opacity-100 scale-100 visible pointer-events-auto translate-y-0"
+          : "opacity-0 invisible pointer-events-none -translate-y-full" */
+}
+
+const Navbar = ({ menuOpen, action }: NavbarProps) => {
   return (
     <nav
-      className={`absolute bg-background/60 backdrop-blur-xl overflow-hidden left-0 w-full z-10 transition-all duration-700 ${
+      className={`absolute backdrop-blur-sm overflow-hidden left-0 w-full z-10 transition-all duration-500 ${
         menuOpen
-          ? "opacity-100 scale-100 visible pointer-events-auto translate-y-0"
-          : "invisible pointer-events-none -translate-y-full"
+          ? "opacity-100 visible pointer-events-auto"
+          : "opacity-0 invisible pointer-events-none"
       }`}
     >
-      <ul className="flex flex-col items-center justify-evenly gap-8 px-6 py-8 sm:flex-row">
+      <ul className="bg-background/60 flex flex-col items-center justify-evenly gap-8 px-6 py-8 sm:flex-row">
         <NavLink>
           <Link
             href="/"

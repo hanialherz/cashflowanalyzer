@@ -13,8 +13,8 @@ const Header = () => {
   const close = () => setMenuOpen(false);
 
   return (
-    <header className="">
-      <div className="bg-background flex items-center justify-between py-6 px-6 z-20 relative">
+    <header className="bg-background">
+      <div className="flex items-center justify-between py-6 px-6 z-20 relative">
         <Link href="/" className="inline-block h-8 w-12 relative">
           <Image
             src={logo}

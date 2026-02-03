@@ -13,7 +13,7 @@ const DropDownMenu = ({ cID, toggleOpen, isOpen, Analyze, Edit }: props) => {
   return (
     <Menu>
       <MenuButton
-        className="bg-lighterblack rounded-xl p-1 not-dark:bg-bg-shade/15 not-dark:text-[#3E3E3E]"
+        className="bg-lighterblack rounded-xl p-1 not-dark:bg-gray/10 not-dark:text-[#3E3E3E]"
         onClick={() => toggleOpen(cID)}
       >
         Options
