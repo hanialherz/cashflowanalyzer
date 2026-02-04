@@ -59,7 +59,7 @@ const FormResult = ({
       ) : (
         <FaExclamation className="text-4xl" />
       )}
-      <div className="w-full  flex flex-col items-start  sm:flex-row sm:justify-between sm:py-6">
+      <div className="w-full flex flex-col items-start sm:flex-row sm:justify-between sm:py-6">
         <p className="flex sm:flex-col sm:gap-1">
           <strong>Needs:</strong>{" "}
           <span>

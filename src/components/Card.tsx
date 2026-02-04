@@ -14,7 +14,7 @@ const Card = ({ heading, icon, children }: CardProps) => {
         <h3 className="text-xl text-foreground font-medium">{heading}</h3>
       </div>
 
-      <p className="text-foreground/50 bg-bg-shade p-4 leading-7 rounded-2xl not-dark:bg-l-black/5 not-dark:text-gray">
+      <p className="text-foreground/60 bg-bg-shade p-4 leading-7 rounded-2xl not-dark:bg-l-black/5 not-dark:text-gray">
         {children}
       </p>
     </div>

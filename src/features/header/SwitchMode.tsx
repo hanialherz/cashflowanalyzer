@@ -1,8 +1,8 @@
 "use client";
 import { MdSunny } from "react-icons/md";
-import { GiEclipseFlare } from "react-icons/gi";
 import { useTheme } from "next-themes";
 import { useEffect, useState } from "react";
+import { FaMoon } from "react-icons/fa6";
 
 const SwitchMode = () => {
   const [mounted, setMounted] = useState<boolean>(false);
@@ -18,19 +18,13 @@ const SwitchMode = () => {
   return (
     <button
       type="button"
-      className="py-4 px-2 w-full flex items-center gap-3 cursor-pointer"
+      className="size-full cursor-pointer flex items-center justify-center"
       onClick={() => setTheme(resolvedTheme == "dark" ? "light" : "dark")}
     >
       {resolvedTheme == "dark" ? (
-        <>
-          <GiEclipseFlare className="text-2xl text-main" />
-          <p className="text-xl text-main">Dark</p>
-        </>
+        <FaMoon className="text-2xl" />
       ) : (
-        <>
-          <MdSunny className="text-2xl" />
-          <p className="text-xl">Light</p>
-        </>
+        <MdSunny className="text-2xl" />
       )}
     </button>
   );

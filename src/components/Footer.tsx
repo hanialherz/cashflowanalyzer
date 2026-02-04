@@ -6,7 +6,7 @@ const Footer = () => {
     <footer className="bg-background py-6 px-6 sticky">
       <div className="grid grid-cols-2 justify-items-start items-start mb-6">
         <FooterCol heading="Sitemap">
-          <ul className="flex flex-col gap-2 text-gray">
+          <ul className="flex flex-col gap-2 text-foreground/70">
             <li>
               <Link
                 href="/"
@@ -43,7 +43,7 @@ const Footer = () => {
         </FooterCol>
 
         <FooterCol heading="Contact">
-          <ul className="flex flex-col gap-2 text-gray">
+          <ul className="flex flex-col gap-2 text-foreground/70">
             <li>
               <address className="not-italic">
                 <a
@@ -57,7 +57,7 @@ const Footer = () => {
           </ul>
         </FooterCol>
       </div>
-      <p className="text-main/40 text-center">Copyright &copy; Hani AL-Herz</p>
+      <p className="text-main/70 text-center">Copyright &copy; Hani AL-Herz</p>
     </footer>
   );
 };
