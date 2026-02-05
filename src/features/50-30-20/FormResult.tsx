@@ -59,28 +59,26 @@ const FormResult = ({
       ) : (
         <FaExclamation className="text-4xl" />
       )}
-      <div className="w-full flex flex-col items-start sm:flex-row sm:justify-between sm:py-6">
-        <p className="flex sm:flex-col sm:gap-1">
-          <strong>Needs:</strong>{" "}
-          <span>
-            ${needsTotal} ({needsPercent?.toFixed(1)}%)
-          </span>
+
+      {/* className="w-full flex flex-col items-start justify-center  gap-4 sm:flex-row sm:justify-between sm:py-6" */}
+      <div className="w-full grid grid-cols-1 gap-y-2 items-start justify-items-start min-[460px]:grid-cols-2  sm:grid-cols-4">
+        <p className="flex flex-col gap-1">
+          <strong>Needs:</strong> <span>${needsTotal}</span>
+          <span>({needsPercent?.toFixed(1)}%)</span>
         </p>
-        <p className="flex sm:flex-col sm:gap-1">
-          <strong>Wants:</strong>{" "}
-          <span>
-            ${wantsTotal} ({wantsPercent?.toFixed(1)}%)
-          </span>
+        <p className="flex flex-col gap-1">
+          <strong>Wants:</strong> <span>${wantsTotal}</span>
+          <span>({wantsPercent?.toFixed(1)}%)</span>
         </p>
-        <p className="flex sm:flex-col sm:gap-1">
-          <strong>Savings:</strong>{" "}
+        <p className="flex flex-col gap-1">
+          <strong>Savings:</strong> <span>${savingsTotal}</span>
           <span>
-            ${savingsTotal} ({savingsPercent?.toFixed(1)}
+            ({savingsPercent?.toFixed(1)}
             %)
           </span>
         </p>
         <p
-          className={`flex sm:flex-col sm:gap-1 ${remaining < 0 && "underline underline-offset-1"}`}
+          className={`flex flex-col gap-1 ${remaining < 0 && "underline underline-offset-1"}`}
         >
           <strong>Remaining:</strong> ${remaining}
         </p>

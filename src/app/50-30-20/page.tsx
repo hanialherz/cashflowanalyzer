@@ -1,7 +1,8 @@
-import FiftyThirtyTwentyForm from "@/features/50-30-20/FiftyThirtyTwentyForm";
-import FormNotice from "@/features/50-30-20/FormNotice";
 import { getBudgetData } from "@/lib/data";
 import Link from "next/link";
+
+import FiftyThirtyTwentyForm from "@/features/50-30-20/FiftyThirtyTwentyForm";
+import FormNotice from "@/features/50-30-20/FormNotice";
 
 const page = async () => {
   const data = await getBudgetData();

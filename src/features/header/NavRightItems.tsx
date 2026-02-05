@@ -24,6 +24,7 @@ const NavRightItems = ({ session, action }: props) => {
             src={session.user.image}
             className=""
             alt="user profile picture"
+            referrerPolicy="no-referrer"
           />
         </li>
       ) : (
