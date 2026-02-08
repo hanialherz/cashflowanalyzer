@@ -11,7 +11,7 @@ const NavLink = ({ location, closeNavAction, children }: props) => {
   return (
     <Link
       href={location}
-      className="size-full flex items-center gap-3 sm:justify-center md:justify-start"
+      className="size-full py-4 px-2 flex items-center gap-3 sm:justify-center md:justify-start"
       onClick={closeNavAction}
     >
       {children}

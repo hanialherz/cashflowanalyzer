@@ -6,12 +6,11 @@ interface props {
   id: number;
   name: string;
   budget: number;
-
+  isOpen: number | undefined;
   toggleOpen: (i: number) => void;
-  isOpen:number | undefined;
 }
 
-const DashboardItem = ({ toggleOpen,isOpen,id, name, budget }: props) => {
+const DashboardItem = ({ id, name, budget, isOpen, toggleOpen }: props) => {
   return (
     <li>
       <div className="bg-bg-shade/70 px-4 py-2 rounded-2xl not-dark:bg-l-black/5 not-dark:text-gray">
@@ -29,16 +28,15 @@ const DashboardItem = ({ toggleOpen,isOpen,id, name, budget }: props) => {
         </div>
 
         <div className="flex items-center gap-4">
-
-<DropDownMenu cID={id} Analyze={<Link href={`/dashboard/${id}`} className="">
-            Analyze
-          </Link>} Edit={<Link href="/dashboard/edit-budget">Edit</Link>} toggleOpen={toggleOpen}
-              isOpen={isOpen} />
+          <DropDownMenu
+            cID={id}
+            Analyze={<Link href={`/dashboard/${id}`}>Analyze</Link>}
+            Edit={<Link href="/dashboard/edit-budget">Edit</Link>}
+            isOpen={isOpen}
+            toggleOpen={toggleOpen}
+          />
 
           <DeleteBudgetConfirm budgetName={name} />
-
-               
-         
         </div>
       </div>
     </li>

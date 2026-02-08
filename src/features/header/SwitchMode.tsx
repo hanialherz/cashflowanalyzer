@@ -18,7 +18,7 @@ const SwitchMode = () => {
   return (
     <button
       type="button"
-      className="size-full cursor-pointer flex items-center justify-center"
+      className="size-full p-4 cursor-pointer flex items-center justify-center"
       onClick={() => setTheme(resolvedTheme == "dark" ? "light" : "dark")}
     >
       {resolvedTheme == "dark" ? (
