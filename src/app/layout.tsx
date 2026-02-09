@@ -26,9 +26,11 @@ const RootLayout = ({ children }: Readonly<RootLayoutProps>) => {
     <html lang="en" suppressHydrationWarning>
       <body className="min-h-screen">
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
-          <Header />
-          <main>{children}</main>
-          <Footer />
+          <div className="root">
+            <Header />
+            <main>{children}</main>
+            <Footer />
+          </div>
         </ThemeProvider>
       </body>
     </html>

@@ -6,6 +6,10 @@
 /* This for manual toggle */
 @custom-variant dark (&:where(.dark, .dark *));
 
+.root {
+  isolation: isolate;
+}
+
 :root {
   --background: #ffffff;
   --foreground: #141414;
