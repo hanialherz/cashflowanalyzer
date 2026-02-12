@@ -1,13 +1,11 @@
 // import { Menu, MenuButton, MenuItem, MenuItems } from "@headlessui/react";
 import Link from "next/link";
-import { ReactNode } from "react";
+
 import * as React from "react";
 import { Menu } from "@base-ui/react/menu";
 
 interface props {
   cID: number;
-
-  children: ReactNode;
 }
 
 const DropDownMenu = ({ cID }: props) => {
@@ -16,7 +14,7 @@ const DropDownMenu = ({ cID }: props) => {
       <Menu.Trigger className="cursor-pointer">Options</Menu.Trigger>
       <Menu.Portal>
         <Menu.Positioner className="outline-none" sideOffset={8}>
-          <Menu.Popup className="leading-4 outline-none select-none bg-background inset-ring-1 inset-ring-foreground/20 rounded ">
+          <Menu.Popup className="leading-4 outline-none select-none bg-background/70 inset-ring-1 inset-ring-foreground/20 rounded ">
             <Menu.Arrow className="data-[side=bottom]:top-[-8px] data-[side=left]:right-[-13px] data-[side=left]:rotate-90 data-[side=right]:left-[-13px] data-[side=right]:-rotate-90 data-[side=top]:bottom-[-8px] data-[side=top]:rotate-180">
               <ArrowSvg />
             </Menu.Arrow>

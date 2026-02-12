@@ -1,4 +1,3 @@
-import Link from "next/link";
 import DeleteBudgetConfirm from "./DeleteBudgetConfirm";
 import DropDownMenu from "./DropDownMenu";
 
@@ -26,15 +25,7 @@ const DashboardItem = ({ id, name, budget }: props) => {
         </div>
 
         <div className="flex items-center gap-4">
-          <DropDownMenu cID={id} isOpen={isOpen}>
-            <button
-              type="button"
-              className="bg-lighterblack rounded-xl p-1 cursor-pointer not-dark:bg-gray/10 not-dark:text-[#3E3E3E]"
-              onClick={() => toggleOpen(id)}
-            >
-              open
-            </button>
-          </DropDownMenu>
+          <DropDownMenu cID={id} />
 
           <DeleteBudgetConfirm budgetName={name} />
         </div>
