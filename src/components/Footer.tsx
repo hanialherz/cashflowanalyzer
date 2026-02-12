@@ -1,7 +1,9 @@
+import { auth } from "@/lib/auth";
 import FooterCol from "./FooterCol";
 import Link from "next/link";
 
-const Footer = () => {
+const Footer = async () => {
+  const session = await auth();
   return (
     <footer className="bg-background py-6 px-6 sticky">
       <div className="grid grid-cols-2 justify-items-start items-start mb-6">
@@ -31,14 +33,16 @@ const Footer = () => {
                 50-30-20
               </Link>
             </li>
-            <li>
-              <Link
-                href="/signin"
-                className="transition-all duration-300 hover:text-main active:text-main not-dark:text-light-text"
-              >
-                Sign in
-              </Link>
-            </li>
+            {!session?.user && (
+              <li>
+                <Link
+                  href="/signin"
+                  className="transition-all duration-300 hover:text-main active:text-main not-dark:text-light-text"
+                >
+                  Sign in
+                </Link>
+              </li>
+            )}
           </ul>
         </FooterCol>
 
