@@ -24,7 +24,10 @@ const DropDownMenu = ({ cID }: props) => {
               </Link>
             </Menu.Item>
             <Menu.Item className="flex hover:bg-foreground/5 active:bg-foreground/5">
-              <Link className="py-2 pr-8 pl-4" href="/dashboard/edit-budget">
+              <Link
+                className="py-2 pr-8 pl-4"
+                href={`/dashboard/edit-budget/${cID}`}
+              >
                 Edit
               </Link>
             </Menu.Item>

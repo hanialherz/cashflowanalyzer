@@ -1,9 +1,9 @@
 "use client";
 import { Dispatch, SetStateAction, useState } from "react";
 
-import Input from "@/components/Input";
+
 import { MdOutlineAdd } from "react-icons/md";
-import InputSpending from "./InputSpending";
+
 import ToggleSpending from "./ToggleSpending";
 
 interface SpendingItem {
@@ -21,7 +21,7 @@ interface props {
 const Spending = ({ spending, setSpending }: props) => {
   const [minimized, setMinimized] = useState<number[]>([]); // keep track of minimized indexes
   const [nextId, setNextId] = useState(0);
-
+const [changedCategory,setChangedCategory]=useState("");
   const addSpending = () => {
     setSpending((prev) => [
       ...prev,
@@ -87,20 +87,55 @@ const Spending = ({ spending, setSpending }: props) => {
                 minimized.includes(index) && "hidden"
               }`}
             >
-              <Input
-                id={`spending-name-${index}`}
-                name="Spending name"
-                type="text"
-              />
-              <InputSpending
-                id={`spending-amount-${index}`}
-                name="Spending"
-                type="number"
-                value={s.amount}
-                handleChange={(e) =>
-                  handleAmountChange(s.id, Number(e.target.value))
-                }
-              />
+              <div className="flex flex-col gap-2 ">
+      <label htmlFor={`spending-name-${index}`} className="font-medium">
+        name
+      </label>
+
+      
+        <input
+          type="text"
+          id={`spending-name-${index}`}
+          name={`spending-name-${index}`}
+          defaultValue={s.name}
+          required
+          className={`py-2 px-2 rounded-md bg-lighterblack  focus-within:outline-2 focus-within:-outline-offset-2 focus-within:outline-main not-dark:bg-[#F0F0F0]  ${
+            (!s.name &&
+              "outline-2 -outline-offset-2 outline-inverted-main  focus-within:outline-inverted-main")
+          }`}
+          
+        />
+      
+
+      
+    </div>
+              
+
+<div className="flex flex-col gap-2 ">
+      <label htmlFor={`spending-amount-${index}`} className="font-medium">
+        Spending
+      </label>
+
+      
+        <input
+          type="number"
+          id={`spending-amount-${index}`}
+          name={`spending-amount-${index}`}
+          defaultValue={s.amount}
+          required
+          className={`py-2 px-2 rounded-md bg-lighterblack  focus-within:outline-2 focus-within:-outline-offset-2 focus-within:outline-main not-dark:bg-[#F0F0F0]  ${
+            !s.amount ||
+            (s.amount <= 0 &&
+              "outline-2 -outline-offset-2 outline-inverted-main  focus-within:outline-inverted-main")
+          }`}
+          onChange={(e) =>
+                  handleAmountChange(s.id, Number(e.target.value))}
+        />
+      
+
+      
+    </div>
+
 
               <div className="flex flex-col justify-center gap-2">
                 <label htmlFor={`category-${index}`} className="font-medium">
@@ -110,7 +145,10 @@ const Spending = ({ spending, setSpending }: props) => {
                   id={`category-${index}`}
                   name="category"
                   className="py-3 px-2 rounded-md bg-lighterblack not-dark:bg-[#F0F0F0]"
-                  defaultValue="entertainment"
+                
+value={s.category}
+                  
+onChange={(e)=>setChangedCategory(e.target.value)}
                 >
                   <option value="food-drinks">Food & Drinks</option>
                   <option value="housing">Housing</option>

@@ -7,7 +7,9 @@ interface props {
   budget: number;
 }
 
-const DashboardItem = ({ id, name, budget }: props) => {
+const DashboardItem = ({ id, name, budget}: props) => {
+  
+
   return (
     <li>
       <div className="bg-bg-shade/70 px-4 py-2 rounded-2xl not-dark:bg-l-black/5 not-dark:text-gray">

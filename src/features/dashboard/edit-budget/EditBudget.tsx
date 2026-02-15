@@ -4,10 +4,11 @@ import { useState } from "react";
 import { Toaster } from "react-hot-toast";
 
 
-import Input from "@/components/Input";
-import Spending from "../Spending";
-import InputBudget from "../InputBudget";
+import Spending from "./Spending";
+
 import NotificationValidation from "../NotificationValidation";
+
+import Budget from "./Budget";
 
 interface SpendingItem {
   id: number;
@@ -16,17 +17,26 @@ interface SpendingItem {
   category: string;
 }
 
-const EditBudgetForm = () => {
+interface props
+{
+  data:{ id: number; name: string; budget: number; spendings: { id: number; name: string; category: string; amount: number; }[]; } | undefined; 
+}
 
-  
+
+
+
+const EditBudgetForm = ({data}:props) => {
+
+
+
+    
+    
 
   /* Tracks the budget amount */
   const [inputBudget, setInputBudget] = useState<number>(0);
 
   /* Tracks all the spendingitems basically an array */
-  const [spending, setSpending] = useState<SpendingItem[]>([]);
-
-
+  const [spending, setSpending] = useState<SpendingItem[]>(data?.spendings||[]);
 
   const getsetbudget = (value: string) => {
     setInputBudget(Number(value));
@@ -41,21 +51,11 @@ const EditBudgetForm = () => {
       <Toaster />
 
       {/* This is a useEffct that will show notification when budget is negtive or spending overbudget */}
-<NotificationValidation inputBudget={inputBudget} spending={spending} />
+      <NotificationValidation inputBudget={inputBudget} spending={spending} />
 
       <h2 className="text-2xl mb-2 ">Budget</h2>
 
-      <div className="grid grid-cols-1 gap-2 mb-6">
-        <Input id="budget-name" name="Budget name" type="text" />
-
-        <InputBudget
-          id="budget"
-          name="Budget"
-          type="number"
-          inputBudget={inputBudget}
-          handleChange={(e) => getsetbudget(e.target.value)}
-        />
-      </div>
+      <Budget data={data} inputBudget={inputBudget} getsetbudget={(e)=>getsetbudget(e.target.value)}/>
 
       <Spending spending={spending} setSpending={setSpending} />
 

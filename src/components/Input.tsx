@@ -5,11 +5,11 @@ interface Props {
   name: string;
   type: string;
   value?: number;
-
+defvalue:string | undefined;
   handleChange?: ChangeEventHandler<HTMLInputElement>;
 }
 
-const Input = ({ id, name, type, value, handleChange }: Props) => {
+const Input = ({ id, name, type, value,defvalue, handleChange }: Props) => {
   return (
     <div className="flex flex-col gap-2 ">
       <label htmlFor={id} className="font-medium">
@@ -21,6 +21,7 @@ const Input = ({ id, name, type, value, handleChange }: Props) => {
           type="number"
           id={id}
           name={id}
+          defaultValue={Number(defvalue)}
           required
           className={`py-2 px-2 rounded-md bg-lighterblack  focus-within:outline-2 focus-within:-outline-offset-2 focus-within:outline-main not-dark:bg-[#F0F0F0]  ${
             !value ||
@@ -31,15 +32,7 @@ const Input = ({ id, name, type, value, handleChange }: Props) => {
         />
       )}
 
-      {type != "number" && (
-        <input
-          type={type}
-          id={id}
-          name={id}
-          required
-          className="py-2 px-2 rounded-md bg-lighterblack  focus-within:outline-2 focus-within:-outline-offset-2 focus-within:outline-main not-dark:bg-[#F0F0F0] "
-        />
-      )}
+      
     </div>
   );
 };
