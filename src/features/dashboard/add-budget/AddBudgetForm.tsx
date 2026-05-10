@@ -5,7 +5,7 @@ import { useState } from "react";
 
 import Input from "@/components/Input";
 import Spending from "../Spending";
-import InputBudget from "../InputBudget";
+// import InputBudget from "../InputBudget";
 import NotificationValidation from "../NotificationValidation";
 
 interface SpendingItem {
