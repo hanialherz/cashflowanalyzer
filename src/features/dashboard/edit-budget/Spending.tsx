@@ -4,7 +4,7 @@ import { CgMinimize } from "react-icons/cg";
 
 
 import { MdOutlineAdd } from "react-icons/md";
-import SpendingForm from "./SpendingForm"
+import EditSpendingForm from "./EditSpendingForm"
 
 
 
@@ -64,7 +64,7 @@ const Spending = ({ spending, setSpending }: props) => {
 
       <div className={`overflow-y-scroll ${spending.length > 0 && "h-100"}`}>
         {spending.map((s, index) => (
-          <div key={s.id} className="mb-4 bg-l-black p-2 rounded not-dark:bg-gray-200">
+          <div key={s.id} className="mb-4 bg-l-black p-2 rounded not-dark:bg-gray/5">
             
 <div className="flex items-center justify-between">
   
@@ -74,9 +74,9 @@ const Spending = ({ spending, setSpending }: props) => {
   
 </div>
            
-           {minimize==s.id &&
-           <SpendingForm items={s} delSpending={delSpending} />
-           }
+           
+           <EditSpendingForm minimized={minimize} items={s} index={index} delSpending={delSpending} />
+           
 
 
             

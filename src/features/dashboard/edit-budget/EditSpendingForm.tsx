@@ -7,24 +7,28 @@ interface SpendingItem {
 interface props
 {
    items:SpendingItem;
+   index:number;
+   minimized:number|null;
    delSpending:(id: number) => void;
 }
 
 
-const SpendingForm =({items,delSpending}:props)=>{
+const EditSpendingForm =({minimized,items,index,delSpending}:props)=>{
   
   
-  return <div className="flex flex-col gap-4"><div className="flex flex-col gap-2">
-      <label htmlFor="spending-name" className="font-medium">
-        Name
+  return <div className={`flex flex-col gap-4 ${minimized == null || minimized !=items.id?"hidden invisible":"block visible"}`}>
+    
+    <div className="flex flex-col gap-2">
+      <label htmlFor={`spending-name-${index}`} className="font-medium">
+        Name 
       </label>
 
 
       
         <input
           type="text"
-          id="spending-name"
-          name="spending-name"
+          id={`spending-name-${index}`}
+          name={`spending-name-${index}`}
           defaultValue={items.name}
           required
           className="py-2 px-2 rounded-md bg-lighterblack  focus-within:outline-2 focus-within:-outline-offset-2 focus-within:outline-main not-dark:bg-[#F0F0F0] "
@@ -34,7 +38,7 @@ const SpendingForm =({items,delSpending}:props)=>{
     
     
     <div className="flex flex-col gap-2 ">
-      <label htmlFor="spending-amount" className="font-medium">
+      <label htmlFor={`spending-amount-${index}`} className="font-medium">
         Amount
       </label>
 
@@ -42,8 +46,8 @@ const SpendingForm =({items,delSpending}:props)=>{
       
         <input
           type="number"
-          id="spending-amount"
-          name="spending-amount"
+          id={`spending-amount-${index}`}
+          name={`spending-amount-${index}`}
           defaultValue={items.amount}
           required
           className="py-2 px-2 rounded-md bg-lighterblack  focus-within:outline-2 focus-within:-outline-offset-2 focus-within:outline-main not-dark:bg-[#F0F0F0] "
@@ -52,13 +56,13 @@ const SpendingForm =({items,delSpending}:props)=>{
     </div>
 
     <div className="flex flex-col gap-2 ">
-      <label htmlFor="spending-category" className="font-medium">
+      <label htmlFor={`spending-category-${index}`} className="font-medium">
         Category {items.category}
       </label>
 
 
-<select id="spending-category"
-          name="spending-category"
+<select id={`spending-category-${index}`}
+          name={`spending-category-${index}`}
           
           defaultValue={items.category}
           required
@@ -108,4 +112,4 @@ const SpendingForm =({items,delSpending}:props)=>{
     </div>
     
 }
-export default SpendingForm;
+export default EditSpendingForm;
