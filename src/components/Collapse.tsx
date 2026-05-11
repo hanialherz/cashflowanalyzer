@@ -1,3 +1,6 @@
+import * as React from 'react';
+import { Collapsible } from '@base-ui/react/collapsible';
+
 interface SpendingItem {
   id: number;
   name: string;
@@ -8,16 +11,20 @@ interface props
 {
    items:SpendingItem;
    index:number;
-   minimized:number|null;
+   
    delSpending:(id: number) => void;
 }
 
-
-const EditSpendingForm =({minimized,items,index,delSpending}:props)=>{
-  
-  
-  return <div className={`${minimized == null || minimized !=items.id?"hidden":"block"}`}>
-  <div className={`flex flex-col gap-4`}>
+const Collapse=({items,index,delSpending}:props)=> {
+  return (
+    <Collapsible.Root className="flex flex-col justify-center mb-2 py-2">
+      <Collapsible.Trigger className="group flex items-center gap-2 rounded-xs px-2 py-2 font-semibold hover:bg-l-black focus-visible:outline-2 active:bg-l-black not-dark:hover:bg-gray/5 not-dark:active:bg-gray/5">
+        <ChevronIcon className="size-3 transition-all ease-out group-data-[panel-open]:rotate-90" />
+        {(index+1)+" "+items.name}
+      </Collapsible.Trigger>
+      <Collapsible.Panel className="flex [&[hidden]:not([hidden='until-found'])]:hidden h-[var(--collapsible-panel-height)] flex-col justify-end overflow-hidden text-sm transition-all ease-out data-[ending-style]:h-0 data-[starting-style]:h-0 duration-150">
+        <div className="flex cursor-text flex-col gap-2 rounded-xs py-2 px-8">
+          <div className={`flex flex-col gap-4`}>
     
     <div className="flex flex-col gap-2">
       <label htmlFor={`spending-name-${index}`} className="font-medium">
@@ -110,7 +117,18 @@ const EditSpendingForm =({minimized,items,index,delSpending}:props)=>{
               </button>
 
 
-    </div></div>
-    
+    </div>
+        </div>
+      </Collapsible.Panel>
+    </Collapsible.Root>
+  );
 }
-export default EditSpendingForm;
+export default Collapse;
+
+export function ChevronIcon(props: React.ComponentProps<'svg'>) {
+  return (
+    <svg width="10" height="10" viewBox="0 0 10 10" fill="none" {...props}>
+      <path d="M3.5 9L7.5 5L3.5 1" stroke="currentcolor" />
+    </svg>
+  );
+}

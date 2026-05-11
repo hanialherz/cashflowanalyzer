@@ -1,11 +1,11 @@
 "use client";
 import { Dispatch, SetStateAction, useState } from "react";
-import { CgMinimize } from "react-icons/cg";
-
 
 import { MdOutlineAdd } from "react-icons/md";
-import EditSpendingForm from "./EditSpendingForm"
 
+
+
+import Collapse from "@/components/Collapse";
 
 
 interface SpendingItem {
@@ -23,7 +23,7 @@ interface props {
 const Spending = ({ spending, setSpending }: props) => {
   
   const [nextId, setNextId] = useState(0);
-  const [minimize, setMinimize] = useState(nextId||null);
+  
 
   const addSpending = () => {
     setSpending((prev) => [
@@ -64,23 +64,8 @@ const Spending = ({ spending, setSpending }: props) => {
 
       <div className={`overflow-y-scroll ${spending.length > 0 && "h-100"}`}>
         {spending.map((s, index) => (
-          <div key={s.id} className="mb-4 bg-l-black p-2 rounded not-dark:bg-gray/5">
-            
-<div className="flex items-center justify-between">
-  
-    <h3 className="flex items-center gap-2"><span>{index+1}</span>{s.name}</h3>
+<Collapse key={index}  items={s} index={index} delSpending={delSpending}/>
 
-    <button type="button" className="cursor-pointer" onClick={()=>setMinimize(prev=> prev==s.id?null:s.id)}><CgMinimize className="text-2xl text-foreground/50" /></button>
-  
-</div>
-           
-           
-           <EditSpendingForm minimized={minimize} items={s} index={index} delSpending={delSpending} />
-           
-
-
-            
-          </div>
         ))}
       </div>
     </div>

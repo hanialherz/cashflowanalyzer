@@ -16,10 +16,11 @@ interface props
 }
 
  const NotificationValidation=({ inputBudget, spending }: props)=>{  /* When the spendings go over the budget show a notification */
-    useEffect(() => {
+   
+  useEffect(() => {
 
 
-    const allspendings = spending.reduce((sum, s) => sum + s.amount, 0);
+    const allspendings = spending.reduce((sum, s) => sum + s.amount, 0); 
     const result = inputBudget - allspendings;
 
     if(inputBudget<0){toast.custom(

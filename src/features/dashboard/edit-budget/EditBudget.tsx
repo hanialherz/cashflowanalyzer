@@ -10,12 +10,7 @@ import NotificationValidation from "../NotificationValidation";
 
 import Budget from "./Budget";
 
-interface SpendingItem {
-  id: number;
-  name: string;
-  amount: number;
-  category: string;
-}
+
 
 interface props
 {
@@ -33,16 +28,18 @@ const EditBudgetForm = ({data}:props) => {
     
 
   /* Tracks the budget amount */
-  const [inputBudget, setInputBudget] = useState<number>(0);
+  const [inputBudget, setInputBudget] = useState<number>(data?.budget||0);
 
   /* Tracks all the spendingitems basically an array */
-  const [spending, setSpending] = useState<SpendingItem[]>(data?.spendings||[]);
+  const [spending, setSpending] = useState(data?.spendings||[]);
 
   const getsetbudget = (value: string) => {
     setInputBudget(Number(value));
   };
 
   function form(e: FormData) {
+    const budget=Number(e.get("Budget"));
+    if(budget<0)return;
     console.log(e);
   }
 
