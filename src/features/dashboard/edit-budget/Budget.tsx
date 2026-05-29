@@ -1,13 +1,30 @@
+import { FieldErrors, UseFormRegister, UseFormWatch } from "react-hook-form";
+
+
+
 interface props
-{data:{ id: number; name: string; budget: number; spendings: { id: number; name: string; category: string; amount: number; }[]; } | undefined;
+{
 
-inputBudget:number;
+register:UseFormRegister<formInputs>;
+watch:UseFormWatch<formInputs>;
+errors:FieldErrors<formInputs>;
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-getsetbudget:(e: any) => void;
 }
 
-const Budget=({data,inputBudget,getsetbudget}:props)=>{return <div className="flex flex-col gap-2 mb-6">
+type formInputs=
+{
+  id:number;
+budgetName:string
+budgetAmount:number
+spendings:{id: number;name: string; category: string; amount: number; }[];
+
+}
+
+const Budget=({register,watch}:props)=>{
+  
+  
+  
+  return <div className="flex flex-col gap-2 mb-6">
 
 <div className="flex flex-col gap-2 ">
       <label htmlFor="budget-name" className="font-medium">
@@ -19,9 +36,8 @@ const Budget=({data,inputBudget,getsetbudget}:props)=>{return <div className="fl
         <input
           type="text"
           id="budget-name"
-          name="budget-name"
-          defaultValue={data?.name}
-          required
+          {...register("budgetName",{required:true})}
+          
           className="py-2 px-2 rounded-md bg-lighterblack  focus-within:outline-2 focus-within:-outline-offset-2 focus-within:outline-main not-dark:bg-[#F0F0F0] "
         />
 
@@ -37,16 +53,16 @@ const Budget=({data,inputBudget,getsetbudget}:props)=>{return <div className="fl
       </label>
       <input
         type="number"
-        id="budget"
-        name="Budget"
-        defaultValue={data?.budget}
-        required
+        id="budget-amount"
+        {...register("budgetAmount",{required:true})}
+        
+        
         className={`py-2 px-2 rounded-md bg-lighterblack  focus-within:outline-2 focus-within:-outline-offset-2 focus-within:outline-main not-dark:bg-[#f0f0f0] ${
-          !inputBudget ||
-          (inputBudget <= 0 &&
+          !watch("budgetAmount") ||
+          (watch("budgetAmount") <= 0 &&
             "outline-2 -outline-offset-2 outline-inverted-main  focus-within:outline-inverted-main")
         }`}
-        onChange={getsetbudget}
+        
       />
     </div>
       </div>}

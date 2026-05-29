@@ -1,29 +1,40 @@
+
 import toast from "react-hot-toast";
 import { useEffect } from "react";
 import { PiWarningCircleLight } from "react-icons/pi";
-
-interface SpendingItem {
-  id: number;
-  name: string;
-  amount: number;
-  category: string;
-}
+import {  UseFormWatch } from "react-hook-form";
 
 interface props
 {
-    inputBudget:number;
-    spending:SpendingItem[];
+  watch:UseFormWatch<formInputs>;
 }
 
- const NotificationValidation=({ inputBudget, spending }: props)=>{  /* When the spendings go over the budget show a notification */
+type formInputs=
+{
+  id:number;
+budgetName:string
+budgetAmount:number
+spendings:{id: number;name: string; category: string; amount: number; }[];
+
+}
+
+
+ const NotificationValidation=({watch}:props)=>{ 
+  
+
+
+  /* When the spendings go over the budget show a notification */
    
   useEffect(() => {
 
 
-    const allspendings = spending.reduce((sum, s) => sum + s.amount, 0); 
-    const result = inputBudget - allspendings;
+    const allspendings = watch("spendings").reduce((sum, s) => sum + s.amount, 0); 
+    const result = watch("budgetAmount") - allspendings;
 
-    if(inputBudget<0){toast.custom(
+    console.log(allspendings+"\n"+result);
+    
+
+    if(watch("budgetAmount")<0){toast.custom(
       <div className="p-4 bg-[#413f41]/80 text-foreground rounded-xl flex items-center gap-2 not-dark:bg-[#f0f0f0] not-dark:text-[#575757]">
         <PiWarningCircleLight className="text-3xl text-inverted-main" />
         <p>Budget cannot be negative</p>
@@ -47,7 +58,7 @@ interface props
 // Cleanup on unmount
   return () => toast.dismissAll();
 
-  }, [inputBudget, spending]);
+  }, [watch("budgetAmount"),watch("spendings")]);
 
   //  to make it clear this is not react component
   return null;

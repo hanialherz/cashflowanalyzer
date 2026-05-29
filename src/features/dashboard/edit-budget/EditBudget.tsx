@@ -1,12 +1,11 @@
-"use client";
+"use client"
+import { useForm} from "react-hook-form";
 
-import { useState } from "react";
-import { Toaster } from "react-hot-toast";
 
 
 import Spending from "./Spending";
 
-import NotificationValidation from "../NotificationValidation";
+
 
 import Budget from "./Budget";
 
@@ -17,45 +16,47 @@ interface props
   data:{ id: number; name: string; budget: number; spendings: { id: number; name: string; category: string; amount: number; }[]; } | undefined; 
 }
 
+type formInputs=
+{
+  id:number;
+budgetName:string
+budgetAmount:number
+spendings:{id: number;name: string; category: string; amount: number; }[];
+
+}
 
 
 
 const EditBudgetForm = ({data}:props) => {
 
+  const {
+    register,
+    handleSubmit,
+    watch,
+    formState: { errors },
+  } = useForm<formInputs>({defaultValues:{id:data?.id,budgetName:data?.name||"",budgetAmount:data?.budget||0,spendings:data?.spendings||[]}});
 
-
-    
-    
-
-  /* Tracks the budget amount */
-  const [inputBudget, setInputBudget] = useState<number>(data?.budget||0);
-
-  /* Tracks all the spendingitems basically an array */
-  const [spending, setSpending] = useState(data?.spendings||[]);
-
-  const getsetbudget = (value: string) => {
-    setInputBudget(Number(value));
-  };
+  const budget=Number(watch("budgetAmount"));
+  const summedSpendings=watch("spendings").reduce((sum, s) => sum + Number(s.amount), 0);
 
   function form(e: FormData) {
-    const budget=Number(e.get("Budget"));
-    if(budget<0)return;
+    
     console.log(e);
   }
 
   return (
     <form action={form} className="bg-gray/5 py-4 px-6">
-      <Toaster />
-
-      {/* This is a useEffct that will show notification when budget is negtive or spending overbudget */}
-      <NotificationValidation inputBudget={inputBudget} spending={spending} />
+      
 
       <h2 className="text-2xl mb-2 ">Budget</h2>
 
-      <Budget data={data} inputBudget={inputBudget} getsetbudget={(e)=>getsetbudget(e.target.value)}/>
+      <Budget register={register} errors={errors} watch={watch} />
 
-      <Spending spending={spending} setSpending={setSpending} />
-
+      <Spending register={register} watch={watch}/>
+<div>
+  
+  <h2 className={`${(budget-summedSpendings)>0? "text-main":"text-inverted-main"}`}>result is {budget-summedSpendings}</h2>
+</div>
       <div className="flex flex-col justify-center gap-2">
         <button
           type="submit"

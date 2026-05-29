@@ -1,5 +1,7 @@
+"use client";
 import * as React from 'react';
 import { Collapsible } from '@base-ui/react/collapsible';
+import { UseFormRegister, UseFormWatch} from 'react-hook-form';
 
 interface SpendingItem {
   id: number;
@@ -11,18 +13,35 @@ interface props
 {
    items:SpendingItem;
    index:number;
+   register:UseFormRegister<formInputs>;
+watch:UseFormWatch<formInputs>;
    
    delSpending:(id: number) => void;
 }
 
-const Collapse=({items,index,delSpending}:props)=> {
+
+
+type formInputs=
+{
+  id:number;
+budgetName:string
+budgetAmount:number
+spendings:{id: number;name: string; category: string; amount: number; }[];
+
+}
+
+
+const Collapse=({items,index,register,watch,delSpending}:props)=> {
+
+  
   return (
     <Collapsible.Root className="flex flex-col justify-center mb-2 py-2">
       <Collapsible.Trigger className="group flex items-center gap-2 rounded-xs px-2 py-2 font-semibold hover:bg-l-black focus-visible:outline-2 active:bg-l-black not-dark:hover:bg-gray/5 not-dark:active:bg-gray/5">
         <ChevronIcon className="size-3 transition-all ease-out group-data-[panel-open]:rotate-90" />
         {(index+1)+" "+items.name}
       </Collapsible.Trigger>
-      <Collapsible.Panel className="flex [&[hidden]:not([hidden='until-found'])]:hidden h-[var(--collapsible-panel-height)] flex-col justify-end overflow-hidden text-sm transition-all ease-out data-[ending-style]:h-0 data-[starting-style]:h-0 duration-150">
+
+      <Collapsible.Panel keepMounted className="flex [&[invisible]:not([invisible='until-found'])]:invisible h-[var(--collapsible-panel-height)] flex-col justify-end overflow-hidden text-sm transition-all ease-out data-[ending-style]:h-0 data-[starting-style]:h-0 duration-150">
         <div className="flex cursor-text flex-col gap-2 rounded-xs py-2 px-8">
           <div className={`flex flex-col gap-4`}>
     
@@ -36,9 +55,8 @@ const Collapse=({items,index,delSpending}:props)=> {
         <input
           type="text"
           id={`spending-name-${index}`}
-          name={`spending-name-${index}`}
-          defaultValue={items.name}
-          required
+         
+          {...register(`spendings.${index}.name`,{required:true})}
           className="py-2 px-2 rounded-md bg-lighterblack  focus-within:outline-2 focus-within:-outline-offset-2 focus-within:outline-main not-dark:bg-[#F0F0F0] "
         />
 
@@ -55,10 +73,12 @@ const Collapse=({items,index,delSpending}:props)=> {
         <input
           type="number"
           id={`spending-amount-${index}`}
-          name={`spending-amount-${index}`}
-          defaultValue={items.amount}
-          required
-          className="py-2 px-2 rounded-md bg-lighterblack  focus-within:outline-2 focus-within:-outline-offset-2 focus-within:outline-main not-dark:bg-[#F0F0F0] "
+          {...register(`spendings.${index}.amount`,{required:true})}
+          className={`py-2 px-2 rounded-md bg-lighterblack  focus-within:outline-2 focus-within:-outline-offset-2 focus-within:outline-main not-dark:bg-[#F0F0F0] ${
+          !watch(`spendings.${index}.amount`) ||
+          (watch(`spendings.${index}.amount`) <= 0 &&
+            "outline-2 -outline-offset-2 outline-inverted-main  focus-within:outline-inverted-main")
+        }`}
         />
 
     </div>
@@ -70,10 +90,7 @@ const Collapse=({items,index,delSpending}:props)=> {
 
 
 <select id={`spending-category-${index}`}
-          name={`spending-category-${index}`}
-          
-          defaultValue={items.category}
-          required
+          {...register(`spendings.${index}.category`,{required:true})}
           className="py-2 px-2 rounded-md bg-lighterblack  focus-within:outline-2 focus-within:-outline-offset-2 focus-within:outline-main not-dark:bg-[#F0F0F0]">
                   <option value="food-drinks">Food & Drinks</option>
                   <option value="housing">Housing</option>

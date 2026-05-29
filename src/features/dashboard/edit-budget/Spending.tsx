@@ -1,11 +1,12 @@
 "use client";
-import { Dispatch, SetStateAction, useState } from "react";
+import {  useState } from "react";
 
 import { MdOutlineAdd } from "react-icons/md";
 
 
 
 import Collapse from "@/components/Collapse";
+import { UseFormRegister, UseFormWatch } from "react-hook-form";
 
 
 interface SpendingItem {
@@ -15,21 +16,35 @@ interface SpendingItem {
   category: string;
 }
 
-interface props {
-  spending: SpendingItem[];
-  setSpending: Dispatch<SetStateAction<SpendingItem[]>>;
+interface props
+{
+
+register:UseFormRegister<formInputs>;
+watch:UseFormWatch<formInputs>;
+
+
 }
 
-const Spending = ({ spending, setSpending }: props) => {
+type formInputs=
+{
+  id:number;
+budgetName:string
+budgetAmount:number
+spendings:{id: number;name: string; category: string; amount: number; }[];
+
+}
+
+const Spending = ({ register,watch}: props) => {
   
   const [nextId, setNextId] = useState(0);
   
 
   const addSpending = () => {
-    setSpending((prev) => [
-      ...prev,
-      { id: nextId, name: "", amount: 0, category: "" }, // default values
-    ]);
+
+    // watch((prev) => [
+    //   ...prev,
+    //   "spendings"
+    // ]);
 
     /* Each time u add a spending to the array increment ID by 1 */
     setNextId((prev) => prev + 1);
@@ -39,7 +54,7 @@ const Spending = ({ spending, setSpending }: props) => {
  
 
   const delSpending = (id: number) => {
-    setSpending((prev) => prev.filter((s) => s.id !== id));
+    // setSpending((prev) => prev.filter((s) => s.id !== id));
   };
 
 
@@ -48,10 +63,10 @@ const Spending = ({ spending, setSpending }: props) => {
     <div className="mb-10">
       <div className="flex items-center justify-between mb-2">
         <h2 className="text-2xl mb-2">
-          {spending.length > 1 ? spending.length : ""} Spendings
+          {watch("spendings").length > 1 ? watch("spendings").length : ""} Spendings
         </h2>
 
-        {spending.length < 50 && (
+        {watch("spendings").length < 50 && (
           <button
             type="button"
             onClick={addSpending}
@@ -62,9 +77,9 @@ const Spending = ({ spending, setSpending }: props) => {
         )}
       </div>
 
-      <div className={`overflow-y-scroll ${spending.length > 0 && "h-100"}`}>
-        {spending.map((s, index) => (
-<Collapse key={index}  items={s} index={index} delSpending={delSpending}/>
+      <div className={`overflow-y-scroll ${watch("spendings").length > 0 && "h-100"}`}>
+        {watch("spendings").map((s, index) => (
+<Collapse key={index}  items={s} index={index} delSpending={delSpending} register={register} watch={watch}/>
 
         ))}
       </div>
